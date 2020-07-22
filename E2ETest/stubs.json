@@ -1,0 +1,192 @@
+{
+  "port": 4545,
+  "protocol": "http",
+  "stubs": [
+    {
+      "responses": [{
+        "is": {
+          "statusCode": 200,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body":
+            {
+              "data": {
+                "stations": [
+                  {
+                    "num_docks_available": 1,
+                    "num_bikes_disabled": 3,
+                    "station_status": "active",
+                    "last_reported": 1595406785,
+                    "is_returning": 1,
+                    "is_renting": 1,
+                    "eightd_has_available_keys": false,
+                    "num_docks_disabled": 1,
+                    "station_id": "72",
+                    "num_bikes_available": 50,
+                    "legacy_id": "72",
+                    "num_ebikes_available": 0,
+                    "is_installed": 1
+                  },
+                  {
+                    "num_docks_available": 15,
+                    "num_bikes_disabled": 1,
+                    "station_status": "active",
+                    "last_reported": 1595390067,
+                    "is_returning": 1,
+                    "is_renting": 1,
+                    "eightd_has_available_keys": false,
+                    "num_docks_disabled": 0,
+                    "station_id": "79",
+                    "num_bikes_available": 17,
+                    "legacy_id": "79",
+                    "num_ebikes_available": 0,
+                    "is_installed": 1
+                  }
+                ]
+              }
+            }
+
+        }
+      }],
+      "predicates": [{
+        "matches": {
+          "path": "/gbfs/en/station_status.json"
+        }
+      }]
+    },
+    {
+      "responses": [{
+        "is": {
+          "statusCode": 200,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body":
+          {
+            "network": {
+              "company": [
+                "Motivate International, Inc."
+              ],
+              "gbfs_href": "https://gbfs.fordgobike.com/gbfs/gbfs.json",
+              "href": "/v2/networks/ford-gobike",
+              "id": "ford-gobike",
+              "location": {
+                "city": "San Francisco Bay Area, CA",
+                "country": "US",
+                "latitude": 37.7141454,
+                "longitude": -122.25
+              },
+              "name": "Bay Wheels",
+              "stations": [
+                {
+                  "empty_slots": 1,
+                  "extra": {
+                    "address": null,
+                    "last_updated": 1595399802,
+                    "renting": 1,
+                    "returning": 1,
+                    "uid": "340"
+                  },
+                  "free_bikes": 14,
+                  "id": "d0e8f4f1834b7b33a3faf8882f567ab8",
+                  "latitude": 37.849735,
+                  "longitude": -122.270582,
+                  "name": "Harmon St at Adeline St",
+                  "timestamp": "2020-07-22T09:19:38.871000Z"
+                },
+                {
+                  "empty_slots": 8,
+                  "extra": {
+                    "address": null,
+                    "last_updated": 1595401619,
+                    "renting": 1,
+                    "returning": 1,
+                    "uid": "341"
+                  },
+                  "free_bikes": 2,
+                  "id": "983514094dd808b1604da2dcfc2d09af",
+                  "latitude": 37.33618830029063,
+                  "longitude": -121.88927650451659,
+                  "name": "Fountain Alley at S 2nd St",
+                  "timestamp": "2020-07-22T09:19:38.873000Z"
+                }
+              ]
+            }
+      }
+
+        }
+      }],
+      "predicates": [{
+        "matches": {
+          "path": "/v2/networks/ford-gobike"
+        }
+      }]
+    },
+    {
+      "responses": [{
+        "is": {
+          "statusCode": 200,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body":
+          {
+            "data": {
+              "stations": [
+                {
+                  "short_name": "6926.01",
+                  "name": "W 52 St & 11 Ave",
+                  "eightd_has_key_dispenser": false,
+                  "rental_methods": [
+                    "KEY",
+                    "CREDITCARD"
+                  ],
+                  "external_id": "66db237e-0aca-11e7-82f6-3863bb44ef7c",
+                  "station_id": "72",
+                  "legacy_id": "72",
+                  "rental_url": "http://app.citibikenyc.com/S6Lr/IBV092JufD?station_id=72",
+                  "eightd_station_services": [],
+                  "capacity": 55,
+                  "region_id": "71",
+                  "electric_bike_surcharge_waiver": false,
+                  "has_kiosk": true,
+                  "lat": 40.76727216,
+                  "station_type": "classic",
+                  "lon": -73.99392888
+                },
+                {
+                  "short_name": "5430.08",
+                  "name": "Franklin St & W Broadway",
+                  "eightd_has_key_dispenser": false,
+                  "rental_methods": [
+                    "KEY",
+                    "CREDITCARD"
+                  ],
+                  "external_id": "66db269c-0aca-11e7-82f6-3863bb44ef7c",
+                  "station_id": "79",
+                  "legacy_id": "79",
+                  "rental_url": "http://app.citibikenyc.com/S6Lr/IBV092JufD?station_id=79",
+                  "eightd_station_services": [],
+                  "capacity": 33,
+                  "region_id": "71",
+                  "electric_bike_surcharge_waiver": false,
+                  "has_kiosk": true,
+                  "lat": 40.71911552,
+                  "station_type": "classic",
+                  "lon": -74.00666661
+                }
+              ]
+            }
+          }
+
+        }
+      }],
+      "predicates": [{
+        "matches": {
+          "path": "/gbfs/en/station_status.json"
+        }
+      }]
+    }
+  ]
+}
