@@ -47,6 +47,18 @@ jobs:
             - run:
                 command: ./sbin/deploy.sh $BASTION_PUBLIC_IP $TRAINING_COHORT
 
+    deploytoTestEnvironment:
+        <<: *defaults
+        steps:
+            - checkout
+            - attach_workspace:
+                  at: /home/circleci/project
+            - add_ssh_keys:
+                  fingerprints:
+                      - "67:f3:1f:c6:db:dd:c2:b8:d7:57:6c:6b:a9:ba:da:ce"
+            - run:
+                  command: ./sbin/deploy.sh $BASTION_PUBLIC_IP $TEST_COHORT
+
 workflows:
     version: 2
     build_and_deploy:
@@ -54,14 +66,17 @@ workflows:
             - build:
                 filters:
                     branches:
-                        only: 
+                        only:
                             - master
                             - start
             - approve-deploy:
                 type: approval
-                requires: 
+                requires:
                     - build
+            - deploytoTestEnvironment:
+                  requires:
+                      - approve-deploy
             - deploy:
                 requires:
-                    - approve-deploy
+                    - deploytoTestEnvironment
 
