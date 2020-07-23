@@ -168,4 +168,6 @@ nohup spark-submit --master yarn --deploy-mode cluster --class com.tw.apps.Stati
 nohup spark-submit --master yarn --deploy-mode cluster --class com.tw.apps.StationApp --name StationTransformerNYC --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0  --driver-memory 500M --conf spark.executor.memory=2g --conf spark.cores.max=1 /tmp/tw-station-transformer-nyc_2.11-0.0.1.jar kafka.${TRAINING_COHORT}.training:2181 1>/tmp/station-transformer-nyc.log 2>/tmp/station-transformer-nyc.error.log &
 
 echo "====Station Consumers Deployed===="
+
+sh ./StationMartChecker/deploy.sh
 EOF
