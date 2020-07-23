@@ -44,7 +44,9 @@
                     "is_installed": 1
                   }
                 ]
-              }
+              },
+              "last_updated": 1595494745,
+              "ttl": 300
             }
 
         }
@@ -177,14 +179,16 @@
                   "lon": -74.00666661
                 }
               ]
-            }
+            },
+            "last_updated": 1595494745,
+            "ttl": 300
           }
 
         }
       }],
       "predicates": [{
         "matches": {
-          "path": "/gbfs/en/station_status.json"
+          "path": "/gbfs/en/station_information.json"
         }
       }]
     }
