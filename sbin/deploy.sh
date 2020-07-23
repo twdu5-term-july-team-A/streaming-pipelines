@@ -169,5 +169,5 @@ nohup spark-submit --master yarn --deploy-mode cluster --class com.tw.apps.Stati
 
 echo "====Station Consumers Deployed===="
 
-sh ./StationMartChecker/deploy.sh
+sh StationMartChecker/deploy.sh
 EOF
