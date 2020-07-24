@@ -16,7 +16,7 @@ jobs:
                 keys:
                     - scala-dependencies-{{ checksum "./RawDataSaver/build.sbt" }}-{{ checksum "./StationConsumer/build.sbt"}}-{{ checksum "./StationTransformerNYC/build.sbt"}}
             - run:
-                command: ./sbin/buildAll.sh               
+                command: ./sbin/buildAll.sh
             - persist_to_workspace:
                 root: /home/circleci/project
                 paths:
@@ -45,7 +45,18 @@ jobs:
                 fingerprints:
                   - "67:f3:1f:c6:db:dd:c2:b8:d7:57:6c:6b:a9:ba:da:ce"
             - run:
-                command: ./sbin/deploy.sh $BASTION_PUBLIC_IP $TRAINING_COHORT
+                command: ./sbin/deploy.sh $BASTION_PUBLIC_IP $TRAINING_COHORT prod
+    testEnvdeploy:
+        <<: *defaults
+        steps:
+            - checkout
+            - attach_workspace:
+                  at: /home/circleci/project
+            - add_ssh_keys:
+                  fingerprints:
+                      - "67:f3:1f:c6:db:dd:c2:b8:d7:57:6c:6b:a9:ba:da:ce"
+            - run:
+                  command: ./sbin/deploy.sh $BASTION_PUBLIC_IP $TRAINING_COHORT test
 
 workflows:
     version: 2
@@ -54,13 +65,17 @@ workflows:
             - build:
                 filters:
                     branches:
-                        only: 
+                        only:
                             - master
                             - start
+            - testEnvdeploy:
+                  requires:
+                      - build
+
             - approve-deploy:
                 type: approval
-                requires: 
-                    - build
+                requires:
+                    - testEnvdeploy
             - deploy:
                 requires:
                     - approve-deploy
