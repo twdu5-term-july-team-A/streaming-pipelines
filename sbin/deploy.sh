@@ -177,5 +177,8 @@ nohup spark-submit --master yarn --deploy-mode cluster --class com.tw.apps.Stati
 
 echo "====Station Consumers Deployed===="
 EOF
+
 echo "====Deploy Station Mart Checker Dag to Airflow===="
-sh StationMartChecker/deploy.sh
+echo "====Copy dags to airflow server===="
+scp ./StationMartChecker/dags/station-mart-checker.py airflow${HOST_SUFFIX}.${TRAINING_COHORT}.training:/home/ec2-user/airflow/dags
+echo "====Dags copied to airflow server===="
