@@ -58,7 +58,7 @@ object StationDataTransformation {
           x("free_bikes").asInstanceOf[Double].toInt,
           x("empty_slots").asInstanceOf[Double].toInt,
           true,
-          false,
+          true,
           Instant.from(DateTimeFormatter.ISO_INSTANT.parse(x("timestamp").asInstanceOf[String])).getEpochSecond,
           x("id").asInstanceOf[String],
           x("name").asInstanceOf[String],
