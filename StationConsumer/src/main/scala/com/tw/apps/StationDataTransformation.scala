@@ -18,6 +18,12 @@ object StationDataTransformation {
     extractSFStationStatus(payload)
   }
 
+  val franceToStationStatus: String => Seq[StationData] = raw_payload => {
+    val json = JSON.parseFull(raw_payload)
+    val payload = json.get.asInstanceOf[Map[String, Any]]("payload")
+    extractFranceStationStatus(payload)
+  }
+
   private def extractSFStationStatus(payload: Any) = {
 
     val network: Any = payload.asInstanceOf[Map[String, Any]]("network")
@@ -38,6 +44,39 @@ object StationDataTransformation {
           x("longitude").asInstanceOf[Double]
         )
       })
+  }
+
+  private def extractFranceStationStatus(payload: Any) = {
+
+    val network: Any = payload.asInstanceOf[Map[String, Any]]("network")
+
+    val stations: Any = network.asInstanceOf[Map[String, Any]]("stations")
+
+    stations.asInstanceOf[Seq[Map[String, Any]]]
+      .map(x => {
+        StationData(
+          x("free_bikes").asInstanceOf[Double].toInt,
+          x("empty_slots").asInstanceOf[Double].toInt,
+          true,
+          false,
+          Instant.from(DateTimeFormatter.ISO_INSTANT.parse(x("timestamp").asInstanceOf[String])).getEpochSecond,
+          x("id").asInstanceOf[String],
+          x("name").asInstanceOf[String],
+          x("latitude").asInstanceOf[Double],
+          x("longitude").asInstanceOf[Double]
+        )
+      })
+  }
+
+
+
+  def franceStationStatusJson2DF(jsonDF: DataFrame, spark: SparkSession): DataFrame = {
+    val toStatusFn: UserDefinedFunction = udf(franceToStationStatus)
+
+    import spark.implicits._
+
+    jsonDF.select(explode(toStatusFn(jsonDF("raw_payload"))) as "status")
+      .select($"status.*")
   }
 
   def sfStationStatusJson2DF(jsonDF: DataFrame, spark: SparkSession): DataFrame = {

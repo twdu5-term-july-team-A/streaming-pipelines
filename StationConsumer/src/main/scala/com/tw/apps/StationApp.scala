@@ -63,7 +63,7 @@ object StationApp {
       .option("failOnDataLoss", false)
       .load()
       .selectExpr("CAST(value AS STRING) as raw_payload")
-      .transform(sfStationStatusJson2DF(_, spark))
+      .transform(franceStationStatusJson2DF(_, spark))
 
     nycStationDF
       .union(sfStationDF)
