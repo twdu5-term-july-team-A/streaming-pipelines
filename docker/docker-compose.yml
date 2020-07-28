@@ -6,11 +6,11 @@ services:
         networks:
           - streaming-data-internal
         volumes:
-          - /Users/chawang/Desktop/repo/streaming-pipelines/imposters:/imposters
+          - ../imposters:/imposters
         ports:
           - "2525:2525"
           - "4545:4545"
-        command: --configfile /imposters/imposters.ejs --allowInjection
+        command: --configfile ../imposters/imposters.ejs --allowInjection
 
     kafka:
         image: wurstmeister/kafka:0.10.0.1-2

@@ -12,7 +12,7 @@ class E2ETest extends FeatureSpec with Matchers with GivenWhenThen {
       feature("Apply station status transformations to data frame") {
             val spark = SparkSession.builder.appName("Test App").master("local").getOrCreate()
 
-            val zookeeperConnectionString = "localhost:2181"
+            val zookeeperConnectionString = "zookeeper:2181"
 
             val retryPolicy = new ExponentialBackoffRetry(1000, 3)
 
@@ -34,7 +34,7 @@ class E2ETest extends FeatureSpec with Matchers with GivenWhenThen {
               var df = spark.read
                       .format("csv")
                       .option("header", "true")
-                      .load("hdfs://hadoop:9003/tw/stationMart/data/")
+                      .load("hdfs://hadoop:9000/tw/stationMart/data/")
 //              var df = spark.read.csv("hdfs://localhost:9003/tw/stationMart/data")
               print(df.head(10))
 
