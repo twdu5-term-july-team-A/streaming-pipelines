@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - streamingdatapipeline_streaming-data-internal
+    volumes:
+      - ~/.ivy2:/root/.ivy2:rw
     restart: on-failure
 
 networks:
