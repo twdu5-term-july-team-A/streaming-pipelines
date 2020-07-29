@@ -184,3 +184,25 @@ echo "====Deploy Station Mart Checker Dag to Airflow===="
 echo "====Copy dags to airflow server===="
 scp ./StationMartChecker/dags/station-mart-checker.py airflow${HOST_SUFFIX}.${TRAINING_COHORT}.training:/home/ec2-user/airflow/dags
 echo "====Dags copied to airflow server===="
+
+echo "====Create hive table===="
+ssh hadoop@${EMR_MASTER_HOST} <<EOF
+set -e
+
+hive
+
+CREATE SCHEMA IF NOT EXISTS mart;
+CREATE EXTERNAL TABLE IF NOT EXISTS mart.station_mart
+        (bikes_available INT,
+         docks_available INT,
+         is_renting BOOLEAN,
+         is_returning BOOLEAN,
+         last_updated BIGINT,
+         stattion_id VARCHAR(100),
+         name VARCHAR(100),
+         latitude DOUBLE,
+         longitude DOUBLE )
+     ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+     LOCATION 'hdfs://${EMR_MASTER_HOST}/tw/stationMart/data'
+     TBLPROPERTIES ('skip.header.line.count' = '1');
+EOF
