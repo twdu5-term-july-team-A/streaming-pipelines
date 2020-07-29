@@ -21,7 +21,7 @@ object StationApp {
 
     val nycStationTopic = new String(zkClient.getData.watched.forPath("/tw/stationDataNYC/topic"))
     val sfStationTopic = new String(zkClient.getData.watched.forPath("/tw/stationDataSF/topic"))
-    val franceStationTopic = new String(zkClient.getData.watched.forPath("/tw/stationDataFrance/topic"))
+    val marseilleStationTopic = new String(zkClient.getData.watched.forPath("/tw/stationDataMarseille/topic"))
 
     val checkpointLocation = new String(
       zkClient.getData.watched.forPath("/tw/output/checkpointLocation"))
@@ -55,15 +55,15 @@ object StationApp {
       .selectExpr("CAST(value AS STRING) as raw_payload")
       .transform(sfStationStatusJson2DF(_, spark))
 
-//    val franceStationDF= spark.readStream
+//    val marseilleStationDF= spark.readStream
 //      .format("kafka")
 //      .option("kafka.bootstrap.servers", stationKafkaBrokers)
-//      .option("subscribe", franceStationTopic)
+//      .option("subscribe", marseilleStationTopic)
 //      .option("startingOffsets", "latest")
 //      .option("failOnDataLoss", false)
 //      .load()
 //      .selectExpr("CAST(value AS STRING) as raw_payload")
-//      .transform(franceStationStatusJson2DF(_, spark))
+//      .transform(marseilleStationStatusJson2DF(_, spark))
 
     nycStationDF
       .union(sfStationDF)
