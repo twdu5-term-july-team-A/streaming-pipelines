@@ -72,11 +72,11 @@ set -e
 
 function kill_process {
     query=$1
-    pid=`ps -aef | grep $query | grep -v sh| grep -v grep| awk '{print $2}'`
-
+    echo "killing $1"
+    pid=`ps -aef | grep $1 | grep -v sh| grep -v grep | awk '{print $2}'`
     if [ -z "$pid" ];
     then
-        echo "no \${query} process running"
+        echo "no ${query} process running"
     else
         kill -9 $pid
     fi
