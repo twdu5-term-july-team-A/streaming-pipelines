@@ -18,10 +18,10 @@ object StationDataTransformation {
     extractSFStationStatus(payload)
   }
 
-  val franceToStationStatus: String => Seq[StationData] = raw_payload => {
+  val marseilleToStationStatus: String => Seq[StationData] = raw_payload => {
     val json = JSON.parseFull(raw_payload)
     val payload = json.get.asInstanceOf[Map[String, Any]]("payload")
-    extractFranceStationStatus(payload)
+    extractMarseilleStationStatus(payload)
   }
 
   private def extractSFStationStatus(payload: Any) = {
@@ -46,7 +46,7 @@ object StationDataTransformation {
       })
   }
 
-  private def extractFranceStationStatus(payload: Any) = {
+  private def extractMarseilleStationStatus(payload: Any) = {
 
     val network: Any = payload.asInstanceOf[Map[String, Any]]("network")
 
@@ -70,8 +70,8 @@ object StationDataTransformation {
 
 
 
-  def franceStationStatusJson2DF(jsonDF: DataFrame, spark: SparkSession): DataFrame = {
-    val toStatusFn: UserDefinedFunction = udf(franceToStationStatus)
+  def marseilleStationStatusJson2DF(jsonDF: DataFrame, spark: SparkSession): DataFrame = {
+    val toStatusFn: UserDefinedFunction = udf(marseilleToStationStatus)
 
     import spark.implicits._
 

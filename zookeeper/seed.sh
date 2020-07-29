@@ -26,11 +26,11 @@ $zk_command create /tw/stationDataSF/checkpointLocation hdfs://$hdfs_server/tw/r
 $zk_command create /tw/stationDataSF/dataLocation hdfs://$hdfs_server/tw/rawData/stationDataSF/data
 
 
-$zk_command create /tw/stationDataFrance ''
-$zk_command create /tw/stationDataFrance/kafkaBrokers $kafka_server
-$zk_command create /tw/stationDataFrance/topic station_data_france
-$zk_command create /tw/stationDataFrance/checkpointLocation hdfs://$hdfs_server/tw/rawData/stationDataFrance/checkpoints
-$zk_command create /tw/stationDataFrance/dataLocation hdfs://$hdfs_server/tw/rawData/stationDataFrance/data
+$zk_command create /tw/stationDataMarseille ''
+$zk_command create /tw/stationDataMarseille/kafkaBrokers $kafka_server
+$zk_command create /tw/stationDataMarseille/topic station_data_marseille
+$zk_command create /tw/stationDataMarseille/checkpointLocation hdfs://$hdfs_server/tw/rawData/stationDataMarseille/checkpoints
+$zk_command create /tw/stationDataMarseille/dataLocation hdfs://$hdfs_server/tw/rawData/stationDataMarseille/data
 
 $zk_command create /tw/output ''
 $zk_command create /tw/output/checkpointLocation hdfs://$hdfs_server/tw/stationMart/checkpoints
