@@ -85,22 +85,5 @@ services:
         networks:
           - streaming-data-internal
         restart: on-failure
-
-    e2e-test:
-      build:
-        context: ../E2ETest
-        dockerfile: Dockerfile
-      networks:
-        - streaming-data-internal
-      depends_on:
-        - zookeeper-seed
-        - mountebank
-        - kafka
-        - hadoop-seed
-        - station-san-francisco-producer
-        - station-consumer
-      volumes:
-        - ~/.ivy2:/root/.ivy2:rw
-      restart: on-failure
 networks:
     streaming-data-internal:
