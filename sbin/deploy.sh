@@ -67,32 +67,14 @@ echo "====Copy jar to ingester server===="
 scp CitibikeApiProducer/build/libs/tw-citibike-apis-producer0.1.0.jar ingester${HOST_SUFFIX}.${TRAINING_COHORT}.training:/tmp/
 echo "====Jar copied to ingester server===="
 
+echo "====Copy kill script ingester server===="
+scp sbin/kill_process.sh ingester${HOST_SUFFIX}.${TRAINING_COHORT}.training:/tmp/kill_process.sh
+echo "====Kill script copied to ingester server===="
+
+
 ssh ingester${HOST_SUFFIX}.${TRAINING_COHORT}.training <<EOF
 set -e
-
-function kill_process {
-    query=$1
-    echo "killing $1"
-    pid=`ps -aef | grep $1 | grep -v sh| grep -v grep | awk '{print $2}'`
-    if [ -z "$pid" ];
-    then
-        echo "no ${query} process running"
-    else
-        kill -9 $pid
-    fi
-}
-
-station_information="station-information"
-station_status="station-status"
-station_san_francisco="station-san-francisco"
-station_france="station-france"
-
-echo "====Kill running producers===="
-
-kill_process ${station_information}
-kill_process ${station_status}
-kill_process ${station_san_francisco}
-kill_process ${station_france}
+sh /tmp/kill_process.sh
 
 echo "====Runing Producers Killed===="
 
