@@ -55,19 +55,18 @@ object StationApp {
       .selectExpr("CAST(value AS STRING) as raw_payload")
       .transform(sfStationStatusJson2DF(_, spark))
 
-    val franceStationDF= spark.readStream
-      .format("kafka")
-      .option("kafka.bootstrap.servers", stationKafkaBrokers)
-      .option("subscribe", franceStationTopic)
-      .option("startingOffsets", "latest")
-      .option("failOnDataLoss", false)
-      .load()
-      .selectExpr("CAST(value AS STRING) as raw_payload")
-      .transform(franceStationStatusJson2DF(_, spark))
+//    val franceStationDF= spark.readStream
+//      .format("kafka")
+//      .option("kafka.bootstrap.servers", stationKafkaBrokers)
+//      .option("subscribe", franceStationTopic)
+//      .option("startingOffsets", "latest")
+//      .option("failOnDataLoss", false)
+//      .load()
+//      .selectExpr("CAST(value AS STRING) as raw_payload")
+//      .transform(franceStationStatusJson2DF(_, spark))
 
     nycStationDF
       .union(sfStationDF)
-      .union(franceStationDF)
       .as[StationData]
       .groupByKey(r=>r.station_id)
       .reduceGroups((r1,r2)=>if (r1.last_updated > r2.last_updated) r1 else r2)
