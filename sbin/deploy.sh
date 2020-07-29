@@ -81,7 +81,7 @@ echo "====Runing Producers Killed===="
 station_information="station-information"
 station_status="station-status"
 station_san_francisco="station-san-francisco"
-station_france="station-france"
+station_marseille="station-marseille":
 
 echo "====Deploy Producers===="
 nohup java -jar /tmp/tw-citibike-apis-producer0.1.0.jar --spring.profiles.active=\${station_information} --kafka.brokers=${KAFKA_HOST}:9092 1>/tmp/\${station_information}.log 2>/tmp/\${station_information}.error.log &
