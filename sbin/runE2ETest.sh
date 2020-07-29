@@ -7,4 +7,4 @@ $DIR/../CitibikeApiProducer/gradlew -p $DIR/../CitibikeApiProducer clean bootJar
 echo "====Building Consumer JARs===="
 cd $DIR/../StationConsumer && sbt package
 echo "====Running docker-compose===="
-$DIR/../docker/docker-compose.sh --project-directory $DIR/../docker -f $DIR/../docker/docker-compose-test.yml up --build -d
+$DIR/../docker/docker-compose.sh --project-directory $DIR/../docker -f $DIR/../docker/docker-compose-test.yml up --build
