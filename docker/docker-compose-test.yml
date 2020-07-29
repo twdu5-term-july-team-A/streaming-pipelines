@@ -85,6 +85,5 @@ services:
         networks:
           - streaming-data-internal
         restart: on-failure
-
 networks:
     streaming-data-internal:
