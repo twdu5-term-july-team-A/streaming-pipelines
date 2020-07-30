@@ -32,7 +32,7 @@ object StationDataTransformation {
 
     stations.asInstanceOf[Seq[Map[String, Any]]]
       .map(x => {
-          StationData(
+        StationData(
           x("free_bikes").asInstanceOf[Double].toInt,
           x("empty_slots").asInstanceOf[Double].toInt,
           x("extra").asInstanceOf[Map[String, Any]]("renting").asInstanceOf[Double] == 1,
@@ -42,9 +42,11 @@ object StationDataTransformation {
           x("name").asInstanceOf[String],
           x("latitude").asInstanceOf[Double],
           x("longitude").asInstanceOf[Double]
-        ))
-
+        )
       }
+        )
+
+
   }
 
   private def extractMarseilleStationStatus(payload: Any) = {
