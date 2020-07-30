@@ -24,7 +24,7 @@ object StationApp {
     val marseilleStationTopic = new String(zkClient.getData.watched.forPath("/tw/stationDataMarseille/topic"))
 
     val checkpointLocation = new String(
-      zkClient.getData.watched.forPath("/tw/output/checkpointLocation"))
+      zkClient.getData.watched.forPath("/tw/output/checkpointLocation1"))
 
     val outputLocation = new String(
       zkClient.getData.watched.forPath("/tw/output/dataLocation"))
@@ -65,6 +65,7 @@ object StationApp {
       .selectExpr("CAST(value AS STRING) as raw_payload")
       .transform(marseilleStationStatusJson2DF(_, spark))
 
+//    print(nycStationDF.head())
     nycStationDF
       .union(sfStationDF)
       .union(marseilleStationDF)
@@ -81,6 +82,8 @@ object StationApp {
       .option("path", outputLocation)
       .start()
       .awaitTermination()
+
+
 
 
 
